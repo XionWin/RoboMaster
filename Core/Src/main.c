@@ -23,6 +23,7 @@
 #include "usart.h"
 #include "gpio.h"
 
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -96,12 +97,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-  }
+  // while (1)
+  // {
+  //   /* USER CODE END WHILE */
+  //   HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"Hello world 123", 15);
+  //   HAL_Delay(1000);
+  //   /* USER CODE BEGIN 3 */
+  // }
+  app_run();
   /* USER CODE END 3 */
 }
 

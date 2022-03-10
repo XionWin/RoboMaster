@@ -1,4 +1,8 @@
 {
     "cortex-debug.armToolchainPath": "/usr/bin",
-    "cortex-debug.openocdPath": "/usr/bin/openocd"
+    "cortex-debug.openocdPath": "/usr/bin/openocd",
+    "files.associations": {
+        "rgb_led.h": "c",
+        "app.h": "c"
+    }
 }

@@ -37,6 +37,7 @@ BUILD_DIR = build
 # C sources
 C_SOURCES =  \
 Core/App/Device/rgb_led.c \
+Core/App/Mode/color.c \
 Core/App/app.c \
 Core/Src/dma.c \
 Core/Src/gpio.c \
@@ -133,6 +134,7 @@ AS_INCLUDES = \
 
 # C includes
 C_INCLUDES =  \
+-ICore/App/Inc \
 -ICore/Inc \
 -IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
 -IDrivers/CMSIS/Include \

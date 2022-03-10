@@ -3,6 +3,7 @@
     "cortex-debug.openocdPath": "/usr/bin/openocd",
     "files.associations": {
         "rgb_led.h": "c",
-        "app.h": "c"
+        "app.h": "c",
+        "color.h": "c"
     }
 }

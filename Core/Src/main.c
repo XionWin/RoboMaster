@@ -102,7 +102,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   // }
-  app_run();
+  return app_run();
   /* USER CODE END 3 */
 }
 

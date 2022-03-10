@@ -7,8 +7,9 @@ extern "C" {
 #endif
 
 #include "rgb_led.h"
+#include "color.h"
 
-void app_run();
+int app_run();
 
 #ifdef __cplusplus
 }

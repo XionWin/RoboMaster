@@ -10,8 +10,8 @@ extern "C" {
 
 #include "stm32f4xx_hal.h"
 
-void rgb_led_show(uint32_t aRGB);
-void rgb_led_channel_show(uint8_t alpha, uint16_t red, uint16_t green, uint16_t blue);
+void argb_led_show(uint32_t aRGB);
+void argb_led_channel_show(uint8_t alpha, uint16_t red, uint16_t green, uint16_t blue);
 
 #ifdef __cplusplus
 }

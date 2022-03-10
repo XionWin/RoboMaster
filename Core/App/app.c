@@ -4,6 +4,10 @@
 extern TIM_HandleTypeDef htim5;
 extern UART_HandleTypeDef huart1;
 void enable_timer5();
+
+#define CVT_FLOAT_TO_BYTE(float_v)          (                       \
+                                                float_v * 0xFF      \
+                                            )
 int app_run()
 {
     enable_timer5();
@@ -22,10 +26,10 @@ int app_run()
         color_t rgb = hsv;
         color_convert(&rgb, COLOR_TYPE_RGB);
 
-        uint8_t r = rgb.r * 0xFF;
-        uint8_t g = rgb.g * 0xFF;
-        uint8_t b = rgb.b * 0xFF;
-        rgb_led_channel_show(0xFF, r, g, b);
+        uint8_t r = CVT_FLOAT_TO_BYTE(rgb.r);
+        uint8_t g = CVT_FLOAT_TO_BYTE(rgb.g);
+        uint8_t b = CVT_FLOAT_TO_BYTE(rgb.b);
+        argb_led_channel_show(0xFF, r, g, b);
 
         HAL_Delay(20);
     }

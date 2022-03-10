@@ -1,7 +1,7 @@
 #include "rgb_led.h"
 
 extern TIM_HandleTypeDef htim5;
-void rgb_led_show(uint32_t aRGB)
+void argb_led_show(uint32_t aRGB)
 {
     static uint8_t alpha;
     static uint16_t red,green,blue;
@@ -16,7 +16,7 @@ void rgb_led_show(uint32_t aRGB)
     __HAL_TIM_SetCompare(&htim5, TIM_CHANNEL_3, red);
 }
 
-void rgb_led_channel_show(uint8_t alpha, uint16_t red, uint16_t green, uint16_t blue)
+void argb_led_channel_show(uint8_t alpha, uint16_t red, uint16_t green, uint16_t blue)
 {
     red *= alpha;
     green *= alpha;

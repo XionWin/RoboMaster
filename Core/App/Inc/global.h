@@ -6,7 +6,10 @@
 extern "C" {
 #endif
 
+#include "aRGB_led.h"
 #include "console.h"
+
+extern aRGB_led_t ARGB_LED;
 
 #define UART_BUFFER_LEN 256
 uint8_t huart1_Tx_buffer[UART_BUFFER_LEN];

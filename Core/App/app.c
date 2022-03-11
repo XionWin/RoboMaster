@@ -18,16 +18,21 @@ void console_receviced_callback(uint8_t * buffer, uint32_t len)
     HAL_UART_Transmit_DMA(&huart1, buffer, len);
 }
 
-int app_run()
+void app_init()
 {
     enable_timer5();
 
-    
     __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
     HAL_UART_Receive_DMA(&huart1, huart1_Rx_buffer, UART_BUFFER_LEN);
 
-    console_init();
     CONSOLE.receivedCallback = console_receviced_callback;
+    
+    aRGB_led_init();
+    console_init();
+}
+
+int app_run()
+{
 
     color_t hsv = COLOR_HSV_INIT(0.f, 1.f, 1.f);
     while (1)
@@ -44,7 +49,8 @@ int app_run()
         uint8_t r = CVT_FLOAT_TO_BYTE(rgb.r);
         uint8_t g = CVT_FLOAT_TO_BYTE(rgb.g);
         uint8_t b = CVT_FLOAT_TO_BYTE(rgb.b);
-        argb_led_channel_show(0xFF, r, g, b);
+        // argb_led_channel_show(0xFF, r, g, b);
+        ARGB_LED.set_channels(0x33, r, g, b);
 
         HAL_Delay(20);
     }

@@ -102,6 +102,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   // }
+
+  app_init();
   return app_run();
   /* USER CODE END 3 */
 }

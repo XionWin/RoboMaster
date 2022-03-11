@@ -5,6 +5,9 @@
         "rgb_led.h": "c",
         "app.h": "c",
         "color.h": "c",
-        "console.h": "c"
+        "console.h": "c",
+        "aRGB_led.h": "c",
+        "global.h": "c",
+        "stm32f4xx_hal.h": "c"
     }
 }

@@ -7,9 +7,9 @@ extern "C" {
 #endif
 
 #include "global.h"
-#include "argb_led.h"
 #include "color.h"
 
+void app_init();
 int app_run();
 
 #ifdef __cplusplus

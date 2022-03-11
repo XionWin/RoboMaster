@@ -14,7 +14,7 @@
  * @param[in] v3:       The third value to evaluate
  * @return              The max of v1, v2, and v3
  */
-#define FMAX3(v1, v2, v3)   fmax(fmax((v1), (v2)), (v3))
+#define FMAX3(v1, v2, v3) fmax(fmax((v1), (v2)), (v3))
 
 /** Evaluate the minimum of three floating-point values
  *
@@ -23,7 +23,7 @@
  * @param[in] v3:       The third value to evaluate
  * @return              The min of v1, v2, and v3
  */
-#define FMIN3(v1, v2, v3)   fmin(fmin((v1), (v2)), (v3))
+#define FMIN3(v1, v2, v3) fmin(fmin((v1), (v2)), (v3))
 
 /* --- PRIVATE FUNCTION PROTOTYPES ------------------------------------------ */
 
@@ -35,7 +35,7 @@
  *
  * @param[in,out] color:    The color to convert
  */
-static void _color_convert_rgb_to_hsv(color_t * color);
+static void _color_convert_rgb_to_hsv(color_t *color);
 
 /** Convert color from rgb to hsl
  *
@@ -45,7 +45,7 @@ static void _color_convert_rgb_to_hsv(color_t * color);
  *
  * @param[in,out] color:    The color to convert
  */
-static void _color_convert_rgb_to_hsl(color_t * color);
+static void _color_convert_rgb_to_hsl(color_t *color);
 
 /** Convert color from hsv to rgb
  *
@@ -55,7 +55,7 @@ static void _color_convert_rgb_to_hsl(color_t * color);
  *
  * @param[in,out] color:    The color to convert
  */
-static void _color_convert_hsv_to_rgb(color_t * color);
+static void _color_convert_hsv_to_rgb(color_t *color);
 
 /** Convert color from hsv to hsl
  *
@@ -65,7 +65,7 @@ static void _color_convert_hsv_to_rgb(color_t * color);
  *
  * @param[in,out] color:    The color to convert
  */
-static void _color_convert_hsv_to_hsl(color_t * color);
+static void _color_convert_hsv_to_hsl(color_t *color);
 
 /** Convert color from hsl to rgb
  *
@@ -75,7 +75,7 @@ static void _color_convert_hsv_to_hsl(color_t * color);
  *
  * @param[in,out] color:    The color to convert
  */
-static void _color_convert_hsl_to_rgb(color_t * color);
+static void _color_convert_hsl_to_rgb(color_t *color);
 
 /** Convert color from hsl to hsv
  *
@@ -85,7 +85,7 @@ static void _color_convert_hsl_to_rgb(color_t * color);
  *
  * @param[in,out] color:    The color to convert
  */
-static void _color_convert_hsl_to_hsv(color_t * color);
+static void _color_convert_hsl_to_hsv(color_t *color);
 
 /** Get the hue value from a color of type @ref COLOR_TYPE_RGB
  *
@@ -95,7 +95,7 @@ static void _color_convert_hsl_to_hsv(color_t * color);
  *
  * @return              The hue for an equivalent HSV or HSL color
  */
-static float _color_get_h_from_rgb(color_t const * color, float cmax, float cmin);
+static float _color_get_h_from_rgb(color_t const *color, float cmax, float cmin);
 
 /** Get RGB from the helper values c, x, and m
  *
@@ -123,38 +123,55 @@ static void _color_get_rgb_from_hcxm(float h,
 /* --- PRIVATE VARIABLES ---------------------------------------------------- */
 /* --- PUBLIC FUNCTIONS ----------------------------------------------------- */
 
-color_err_t color_convert(color_t* color, color_type_t convert_to)
+color_err_t color_convert(color_t *color, color_type_t convert_to)
 {
-    if (color->type >= MAX_COLOR_TYPE || convert_to >= MAX_COLOR_TYPE) {
+    if (color->type >= MAX_COLOR_TYPE || convert_to >= MAX_COLOR_TYPE)
+    {
         return COLOR_ERR_TYPE;
     }
 
     if (!(0.0 <= color->r && color->r <= 1.0 &&
           0.0 <= color->g && color->g <= 1.0 &&
-          0.0 <= color->b && color->b <= 1.0)) {
+          0.0 <= color->b && color->b <= 1.0))
+    {
         return COLOR_ERR_LEVEL;
     }
 
-    if (color->type == convert_to) {
+    if (color->type == convert_to)
+    {
         return COLOR_SUCCESS;
     }
 
-    if (color->type == COLOR_TYPE_RGB) {
-        if (convert_to == COLOR_TYPE_HSV) {
+    if (color->type == COLOR_TYPE_RGB)
+    {
+        if (convert_to == COLOR_TYPE_HSV)
+        {
             _color_convert_rgb_to_hsv(color);
-        } else if (convert_to == COLOR_TYPE_HSL) {
+        }
+        else if (convert_to == COLOR_TYPE_HSL)
+        {
             _color_convert_rgb_to_hsl(color);
         }
-    } else if (color->type == COLOR_TYPE_HSV) {
-        if (convert_to == COLOR_TYPE_RGB) {
+    }
+    else if (color->type == COLOR_TYPE_HSV)
+    {
+        if (convert_to == COLOR_TYPE_RGB)
+        {
             _color_convert_hsv_to_rgb(color);
-        } else if (convert_to == COLOR_TYPE_HSL) {
+        }
+        else if (convert_to == COLOR_TYPE_HSL)
+        {
             _color_convert_hsv_to_hsl(color);
         }
-    } else if (color->type == COLOR_TYPE_HSL) {
-        if (convert_to == COLOR_TYPE_RGB) {
+    }
+    else if (color->type == COLOR_TYPE_HSL)
+    {
+        if (convert_to == COLOR_TYPE_RGB)
+        {
             _color_convert_hsl_to_rgb(color);
-        } else if (convert_to == COLOR_TYPE_HSV) {
+        }
+        else if (convert_to == COLOR_TYPE_HSV)
+        {
             _color_convert_hsl_to_hsv(color);
         }
     }
@@ -164,7 +181,7 @@ color_err_t color_convert(color_t* color, color_type_t convert_to)
 
 /* --- PRIVATE FUNCTION DEFINITIONS ----------------------------------------- */
 
-static void _color_convert_rgb_to_hsv(color_t* color)
+static void _color_convert_rgb_to_hsv(color_t *color)
 {
     float r = color->r;
     float g = color->g;
@@ -177,21 +194,24 @@ static void _color_convert_rgb_to_hsv(color_t* color)
     float h = _color_get_h_from_rgb(color, cmax, cmin);
 
     float s = 0.0;
-    if (cmax <= 0.0001) {
+    if (cmax <= 0.0001)
+    {
         s = 0.0;
-    } else {
+    }
+    else
+    {
         s = delta / cmax;
     }
 
     float v = cmax;
 
     color->type = COLOR_TYPE_HSV;
-    color->h    = h;
-    color->s    = s;
-    color->v    = v;
+    color->h = h;
+    color->s = s;
+    color->v = v;
 }
 
-static void _color_convert_rgb_to_hsl(color_t* color)
+static void _color_convert_rgb_to_hsl(color_t *color)
 {
     float r = color->r;
     float g = color->g;
@@ -203,22 +223,25 @@ static void _color_convert_rgb_to_hsl(color_t* color)
 
     float h = _color_get_h_from_rgb(color, cmax, cmin);
 
-    float l = (cmax + cmin)/2;
+    float l = (cmax + cmin) / 2;
 
     float s = 0.0;
-    if (delta <= 0.0001) {
+    if (delta <= 0.0001)
+    {
         s = 0.0;
-    } else {
-        s = delta/(1.0f - fabsf(2 * l - 1));
+    }
+    else
+    {
+        s = delta / (1.0f - fabsf(2 * l - 1));
     }
 
     color->type = COLOR_TYPE_HSL;
-    color->h    = h;
-    color->s    = s;
-    color->l    = l;
+    color->h = h;
+    color->s = s;
+    color->l = l;
 }
 
-static void _color_convert_hsv_to_rgb(color_t* color)
+static void _color_convert_hsv_to_rgb(color_t *color)
 {
     float h = color->h;
     float s = color->s;
@@ -234,12 +257,12 @@ static void _color_convert_hsv_to_rgb(color_t* color)
     _color_get_rgb_from_hcxm(h, c, x, m, &r, &g, &b);
 
     color->type = COLOR_TYPE_RGB;
-    color->r    = r;
-    color->g    = g;
-    color->b    = b;
+    color->r = r;
+    color->g = g;
+    color->b = b;
 }
 
-static void _color_convert_hsv_to_hsl(color_t* color)
+static void _color_convert_hsv_to_hsl(color_t *color)
 {
     float h_hsv = color->h;
     float s_hsv = color->s;
@@ -249,21 +272,23 @@ static void _color_convert_hsv_to_hsl(color_t* color)
     float s_hsl = s_hsv * v_hsv;
     float l_hsl = (2.0 - s_hsv) * v_hsv;
 
-    if (l_hsl <= 0.0001 || l_hsl >= 1.9999) {
+    if (l_hsl <= 0.0001 || l_hsl >= 1.9999)
+    {
         s_hsl = 0.0;
     }
-    else {
+    else
+    {
         s_hsl /= (l_hsl <= 1.0) ? l_hsl : (2.0 - l_hsl);
     }
     l_hsl /= 2.0;
 
     color->type = COLOR_TYPE_HSL;
-    color->h    = h_hsl;
-    color->s    = s_hsl;
-    color->l    = l_hsl;
+    color->h = h_hsl;
+    color->s = s_hsl;
+    color->l = l_hsl;
 }
 
-static void _color_convert_hsl_to_rgb(color_t* color)
+static void _color_convert_hsl_to_rgb(color_t *color)
 {
     float h = color->h;
     float s = color->s;
@@ -279,12 +304,12 @@ static void _color_convert_hsl_to_rgb(color_t* color)
     _color_get_rgb_from_hcxm(h, c, x, m, &r, &g, &b);
 
     color->type = COLOR_TYPE_RGB;
-    color->r    = r;
-    color->g    = g;
-    color->b    = b;
+    color->r = r;
+    color->g = g;
+    color->b = b;
 }
 
-static void _color_convert_hsl_to_hsv(color_t* color)
+static void _color_convert_hsl_to_hsv(color_t *color)
 {
     float h_hsl = color->h;
     float s_hsl = color->s;
@@ -294,20 +319,23 @@ static void _color_convert_hsl_to_hsv(color_t* color)
     s_hsl *= (l_hsl <= 1.0) ? l_hsl : (2.0 - l_hsl);
     float h_hsv = h_hsl;
     float s_hsv = 0.0;
-    if (l_hsl + s_hsl <= 0.0001) {
+    if (l_hsl + s_hsl <= 0.0001)
+    {
         s_hsv = 0.0;
-    } else {
+    }
+    else
+    {
         s_hsv = (2.0 * s_hsl) / (l_hsl + s_hsl);
     }
     float v_hsv = (l_hsl + s_hsl) / 2.0;
 
     color->type = COLOR_TYPE_HSV;
-    color->h    = h_hsv;
-    color->s    = s_hsv;
-    color->v    = v_hsv;
+    color->h = h_hsv;
+    color->s = s_hsv;
+    color->v = v_hsv;
 }
 
-static float _color_get_h_from_rgb(color_t const * color, float cmax, float cmin)
+static float _color_get_h_from_rgb(color_t const *color, float cmax, float cmin)
 {
     float r = color->r;
     float g = color->g;
@@ -319,16 +347,24 @@ static float _color_get_h_from_rgb(color_t const * color, float cmax, float cmin
     if (delta <= 0.0001)
     {
         h = 0.0;
-    } else {
-        if (r >= cmax) {
-            h = fmodf(((g - b)/delta), 6.0)/6.0;
-        } else if (g >= cmax) {
-            h = (((b - r)/delta) + 2.0)/6.0;
-        } else if (b >= cmax) {
-            h = (((r - g)/delta) + 4.0)/6.0;
+    }
+    else
+    {
+        if (r >= cmax)
+        {
+            h = fmodf(((g - b) / delta), 6.0) / 6.0;
+        }
+        else if (g >= cmax)
+        {
+            h = (((b - r) / delta) + 2.0) / 6.0;
+        }
+        else if (b >= cmax)
+        {
+            h = (((r - g) / delta) + 4.0) / 6.0;
         }
     }
-    if (h < 0.0) {
+    if (h < 0.0)
+    {
         h = 1.0 + h;
     }
 
@@ -345,7 +381,8 @@ static void _color_get_rgb_from_hcxm(float h,
 {
     uint32_t sextant = floorf(h * 6.0);
 
-    switch (sextant) {
+    switch (sextant)
+    {
     case 0:
     case 6:
         *r = c + m;

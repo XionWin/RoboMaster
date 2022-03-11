@@ -2,7 +2,8 @@
 
 extern TIM_HandleTypeDef htim5;
 
-struct aRGB_led_s_t {
+struct aRGB_led_s_t
+{
     uint8_t alpha;
     uint8_t red;
     uint8_t green;
@@ -25,14 +26,14 @@ void aRGB_led_init()
     ARGB_LED.init = argb_led_set_color;
     ARGB_LED.set_color = argb_led_set_color;
     ARGB_LED.set_channels = argb_led_set_channels;
-    
+
     enable_timer5();
 }
 
 void argb_led_set_color(uint32_t aRGB)
 {
     static uint8_t alpha;
-    static uint8_t red,green,blue;
+    static uint8_t red, green, blue;
 
     alpha = (aRGB & 0xFF000000) >> 24;
     red = (aRGB & 0x00FF0000) >> 16;
@@ -41,7 +42,6 @@ void argb_led_set_color(uint32_t aRGB)
 
     argb_led_set_channels(alpha, red, green, blue);
 }
-
 
 void argb_led_set_channels(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue)
 {
@@ -64,9 +64,9 @@ uint16_t mix_channel_with_alpha(uint8_t value, uint8_t alpha)
 
 void enable_timer5()
 {
-    //start tim
+    // start tim
     HAL_TIM_Base_Start(&htim5);
-    //start pwm channel
+    // start pwm channel
     HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_2);
     HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_3);

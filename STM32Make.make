@@ -38,6 +38,7 @@ BUILD_DIR = build
 C_SOURCES =  \
 Core/App/Device/aRGB_led.c \
 Core/App/Device/console.c \
+Core/App/Device/global.c \
 Core/App/Mode/color.c \
 Core/App/app.c \
 Core/Src/dma.c \

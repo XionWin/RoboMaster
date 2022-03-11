@@ -40,6 +40,7 @@ Core/Src/main.c \
 Core/App/app.c \
 Core/App/Device/console.c \
 Core/App/Device/aRGB_led.c \
+Core/App/Device/global.c \
 Core/App/Mode/color.c \
 Core/Src/stm32f4xx_it.c \
 Core/Src/stm32f4xx_hal_msp.c \

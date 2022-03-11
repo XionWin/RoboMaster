@@ -6,7 +6,8 @@
 extern "C" {
 #endif
 
-#include "rgb_led.h"
+#include "global.h"
+#include "argb_led.h"
 #include "color.h"
 
 int app_run();

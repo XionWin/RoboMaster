@@ -1,26 +1,41 @@
 #include "app.h"
-#include "color.h"
 
 extern TIM_HandleTypeDef htim5;
 extern UART_HandleTypeDef huart1;
+
+extern uint8_t CONSOLE_WRITE_BUFFER[];
+extern uint8_t CONSOLE_READ_BUFFER[];
+
+
 void enable_timer5();
 
 #define CVT_FLOAT_TO_BYTE(float_v)          (                       \
                                                 float_v * 0xFF      \
                                             )
+
+void console_receviced_callback(uint8_t * buffer, uint32_t len)
+{
+    HAL_UART_Transmit_DMA(&huart1, buffer, len);
+}
+
 int app_run()
 {
     enable_timer5();
 
-    color_t hsv = COLOR_HSV_INIT(0.f, 1.f, 1.f);
+    
+    __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+    HAL_UART_Receive_DMA(&huart1, huart1_Rx_buffer, UART_BUFFER_LEN);
 
+    console_init();
+    CONSOLE.receivedCallback = console_receviced_callback;
+
+    color_t hsv = COLOR_HSV_INIT(0.f, 1.f, 1.f);
     while (1)
     {
         hsv.h += 0.01f;
         if(hsv.h >= 1)
         {
             hsv.h = 0.f;
-            HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"hello world 2022", 16);
         }
 
         color_t rgb = hsv;

@@ -18,8 +18,12 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
+#include <string.h>
+
 #include "main.h"
 #include "stm32f4xx_it.h"
+
+#include "global.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -58,6 +62,7 @@
 extern DMA_HandleTypeDef hdma_usart1_tx;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern UART_HandleTypeDef huart1;
+
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -199,7 +204,7 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
-
+void USART1_RxIdleCallback(UART_HandleTypeDef *huart);
 /**
   * @brief This function handles USART1 global interrupt.
   */
@@ -211,7 +216,30 @@ void USART1_IRQHandler(void)
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
 
+  USART1_RxIdleCallback(&huart1);
+
   /* USER CODE END USART1_IRQn 1 */
+}
+
+void USART1_RxIdleCallback(UART_HandleTypeDef *huart) {
+	uint32_t temp;
+	if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) != RESET ) {
+      __HAL_UART_CLEAR_IDLEFLAG(&huart1);
+      // temp = huart1.Instance->ISR;
+      // temp = huart1.Instance->ICR;
+      // temp = huart1.Instance->RDR; 
+      HAL_UART_DMAStop(&huart1);
+      temp  = hdma_usart1_rx.Instance->NDTR;	//DMA stream x number of data register
+      size_t rec_len = UART_BUFFER_LEN - temp;
+      memcpy(CONSOLE.readBuffer, huart1_Rx_buffer, rec_len);
+      CONSOLE.availableReadLength = rec_len;
+      HAL_UART_Receive_DMA(&huart1, huart1_Rx_buffer, UART_BUFFER_LEN);
+
+      if(CONSOLE.receivedCallback != NULL)
+      {
+        CONSOLE.receivedCallback(CONSOLE.readBuffer, CONSOLE.availableReadLength);
+      }
+  }
 }
 
 /**

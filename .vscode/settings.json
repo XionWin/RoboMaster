@@ -4,6 +4,7 @@
     "files.associations": {
         "rgb_led.h": "c",
         "app.h": "c",
-        "color.h": "c"
+        "color.h": "c",
+        "console.h": "c"
     }
 }

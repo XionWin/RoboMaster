@@ -231,14 +231,12 @@ void USART1_RxIdleCallback(UART_HandleTypeDef *huart) {
       HAL_UART_DMAStop(&huart1);
       temp  = hdma_usart1_rx.Instance->NDTR;	//DMA stream x number of data register
       size_t rec_len = UART_BUFFER_LEN - temp;
-      memcpy(CONSOLE.readBuffer, huart1_Rx_buffer, rec_len);
-      CONSOLE.availableReadLength = rec_len;
-      HAL_UART_Receive_DMA(&huart1, huart1_Rx_buffer, UART_BUFFER_LEN);
 
-      if(CONSOLE.receivedCallback != NULL)
+      if(CONSOLE.read_callback != NULL)
       {
-        CONSOLE.receivedCallback(CONSOLE.readBuffer, CONSOLE.availableReadLength);
+        CONSOLE.read_callback(huart1_Rx_buffer, rec_len);
       }
+      HAL_UART_Receive_DMA(&huart1, huart1_Rx_buffer, UART_BUFFER_LEN);
   }
 }
 

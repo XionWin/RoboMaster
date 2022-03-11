@@ -10,26 +10,20 @@ extern "C" {
 
 #include "stm32f4xx_hal.h"
 
-#define CONSOLE_BUFFER_LEN 256
+#define UART_BUFFER_LEN 256
+uint8_t huart1_Tx_buffer[UART_BUFFER_LEN];
+uint8_t huart1_Rx_buffer[UART_BUFFER_LEN];
 
-typedef void (*console_Rx_callback)(uint8_t * buffer, uint32_t len);
+typedef void (*console_write_func)(uint8_t * buffer, uint32_t len);
+typedef void (*console_read_callback)(uint8_t * buffer, uint32_t len);
 
 typedef struct {
-    const uint32_t BUFFER_MAX_LEN;
-    uint8_t * writeBuffer;
-    uint8_t * readBuffer;
-    uint32_t availableReadLength;
-    console_Rx_callback receivedCallback;
+    console_write_func write;
+    console_read_callback read_callback;
 } console_t;
 
-uint8_t CONSOLE_WRITE_BUFFER[CONSOLE_BUFFER_LEN];
-uint8_t CONSOLE_READ_BUFFER[CONSOLE_BUFFER_LEN];
-
-extern console_t CONSOLE;
 
 void console_init();
-void console_write(char * buf, uint8_t len);
-int console_read(char * buf);
 
 #ifdef __cplusplus
 }

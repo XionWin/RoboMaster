@@ -12,19 +12,19 @@ extern "C" {
 
 typedef struct aRGB_led_s_t aRGB_led_s_t;
 
+typedef void (* aRGB_led_set_init_func)();
 typedef void (* aRGB_led_set_color_func)(uint32_t color);
 typedef void (* argb_led_set_channels_func)(uint8_t a, uint8_t r, uint8_t g, uint8_t b);
 
 typedef struct
 {
     aRGB_led_s_t *super;
+    aRGB_led_set_init_func  init;
     aRGB_led_set_color_func set_color;
     argb_led_set_channels_func set_channels;
 } aRGB_led_t;
 
 void aRGB_led_init();
-void argb_led_set_color(uint32_t aRGB);
-void argb_led_set_channels(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
 
 #ifdef __cplusplus
 }

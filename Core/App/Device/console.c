@@ -1,17 +1,21 @@
 #include "console.h"
 
-console_t CONSOLE = {CONSOLE_BUFFER_LEN, CONSOLE_WRITE_BUFFER, CONSOLE_READ_BUFFER, 0, NULL};
+extern UART_HandleTypeDef huart1;
+
+console_t CONSOLE;
+
+void console_write(uint8_t * buffer, uint32_t len);
+
 void console_init()
 {
+    CONSOLE.write = console_write;
+    CONSOLE.read_callback = NULL;
+
+    __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+    HAL_UART_Receive_DMA(&huart1, huart1_Rx_buffer, UART_BUFFER_LEN);
 }
 
-void console_write(char * buf, uint8_t len)
+void console_write(uint8_t * buffer, uint32_t len)
 {
-
-}
-
-
-int console_read(char * buf)
-{
-    return 0;
+    HAL_UART_Transmit_DMA(&huart1, buffer, len);
 }

@@ -2,7 +2,6 @@
 
 extern TIM_HandleTypeDef htim5;
 
-
 struct aRGB_led_s_t {
     uint8_t alpha;
     uint8_t red;
@@ -62,7 +61,6 @@ uint16_t mix_channel_with_alpha(uint8_t value, uint8_t alpha)
     float rate = color_rate * alpha_rate;
     return (uint16_t)(0xFFFF * rate);
 }
-
 
 void enable_timer5()
 {

@@ -1,5 +1,6 @@
 #include "app.h"
 
+
 #define CVT_FLOAT_TO_BYTE(float_v) ( \
     float_v * 0xFF)
 
@@ -11,15 +12,27 @@ void app_init()
 {
     aRGB_led_init();
     console_init();
+    buzzer_init();
 
     CONSOLE.read_callback = console_receviced_callback;
 }
 
 int app_run()
 {
+    uint16_t psc = 0;
+    const uint16_t max_psc = 0xFFFF;
+    BUZZER.set_volume(0x00AA);
     while (1)
     {
         ARGB_LED.set_color(color_convert_slv_to_argb(hsv));
+
+        BUZZER.set_frequency(psc);
+        psc += 5;
+        if(psc >= max_psc)
+        {
+            psc = 0;
+        }
+
         HAL_Delay(20);
     }
     return 0;

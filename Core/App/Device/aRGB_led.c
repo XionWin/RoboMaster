@@ -23,7 +23,6 @@ void aRGB_led_init()
     ARGB_LED.super->red = 0x00;
     ARGB_LED.super->green = 0x00;
     ARGB_LED.super->blue = 0x00;
-    ARGB_LED.init = argb_led_set_color;
     ARGB_LED.set_color = argb_led_set_color;
     ARGB_LED.set_channels = argb_led_set_channels;
 

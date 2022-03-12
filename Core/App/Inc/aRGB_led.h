@@ -20,7 +20,6 @@ extern "C"
     typedef struct
     {
         aRGB_led_s_t *super;
-        aRGB_led_set_init_func init;
         aRGB_led_set_color_func set_color;
         argb_led_set_channels_func set_channels;
     } aRGB_led_t;

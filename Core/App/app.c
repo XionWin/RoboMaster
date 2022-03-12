@@ -24,24 +24,21 @@ int app_run()
     // const uint16_t max_psc = 0xFFFF;
     // BUZZER.set_volume(0x00AA);
 
-
-    uint16_t pwm = 0x0FFF;
+    uint16_t pwm_base = 1130;
+    uint16_t pwm_max = 1400;
+    uint16_t pwm = pwm_base;
     PWM.set_ch1(pwm);
     PWM.set_ch2(pwm);
     PWM.set_ch3(pwm);
     PWM.set_ch4(pwm);
 
-    HAL_Delay(500);
-
-    pwm = 0x00;
-    PWM.set_ch1(pwm);
-    PWM.set_ch2(pwm);
-    PWM.set_ch3(pwm);
-    PWM.set_ch4(pwm);
-    HAL_Delay(500);
+    HAL_Delay(3000);
 
 
-    uint16_t pwm_max = 0x0FFF;
+
+
+
+
     while (1)
     {
         ARGB_LED.set_color(color_convert_slv_to_argb(hsv));
@@ -52,10 +49,10 @@ int app_run()
         PWM.set_ch3(pwm);
         PWM.set_ch4(pwm);
 
-        pwm += 100;
+        pwm += 1;
         if(pwm > pwm_max)
         {
-            pwm = 0x00;
+            pwm = pwm_base;
         }
 
         // BUZZER.set_frequency(psc);
@@ -65,7 +62,7 @@ int app_run()
         //     psc = 0;
         // }
 
-        HAL_Delay(20);
+        HAL_Delay(100);
     }
     return 0;
 }

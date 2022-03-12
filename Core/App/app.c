@@ -13,25 +13,57 @@ void app_init()
     aRGB_led_init();
     console_init();
     buzzer_init();
+    pwm_init();
 
     CONSOLE.read_callback = console_receviced_callback;
 }
 
 int app_run()
 {
-    uint16_t psc = 0;
-    const uint16_t max_psc = 0xFFFF;
-    BUZZER.set_volume(0x00AA);
+    // uint16_t psc = 0;
+    // const uint16_t max_psc = 0xFFFF;
+    // BUZZER.set_volume(0x00AA);
+
+
+    uint16_t pwm = 0x0FFF;
+    PWM.set_ch1(pwm);
+    PWM.set_ch2(pwm);
+    PWM.set_ch3(pwm);
+    PWM.set_ch4(pwm);
+
+    HAL_Delay(500);
+
+    pwm = 0x00;
+    PWM.set_ch1(pwm);
+    PWM.set_ch2(pwm);
+    PWM.set_ch3(pwm);
+    PWM.set_ch4(pwm);
+    HAL_Delay(500);
+
+
+    uint16_t pwm_max = 0x0FFF;
     while (1)
     {
         ARGB_LED.set_color(color_convert_slv_to_argb(hsv));
 
-        BUZZER.set_frequency(psc);
-        psc += 5;
-        if(psc >= max_psc)
+
+        PWM.set_ch1(pwm);
+        PWM.set_ch2(pwm);
+        PWM.set_ch3(pwm);
+        PWM.set_ch4(pwm);
+
+        pwm += 100;
+        if(pwm > pwm_max)
         {
-            psc = 0;
+            pwm = 0x00;
         }
+
+        // BUZZER.set_frequency(psc);
+        // psc += 5;
+        // if(psc >= max_psc)
+        // {
+        //     psc = 0;
+        // }
 
         HAL_Delay(20);
     }

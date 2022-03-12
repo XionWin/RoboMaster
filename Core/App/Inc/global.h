@@ -11,11 +11,13 @@ extern "C"
 #include "aRGB_led.h"
 #include "console.h"
 #include "buzzer.h"
+#include "pwm.h"
 
     // Resources
     extern aRGB_led_t ARGB_LED;
     extern console_t CONSOLE;
     extern buzzer_t BUZZER;
+    extern pwm_t PWM;
 
     // Stm32f4 functions
     /* Register in USART1_IRQHandler */

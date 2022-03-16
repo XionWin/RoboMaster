@@ -1,3 +1,4 @@
+#include <math.h>
 #include "buzzer.h"
 
 extern TIM_HandleTypeDef htim4;
@@ -16,8 +17,9 @@ void buzzer_init()
 
 void buzzer_set_tone(uint16_t tone)
 {
+    uint16_t v = ceil(tone / 2.f);
     __HAL_TIM_SetAutoreload(&htim4, tone);
-    __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_3, tone / 2);
+    __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_3, v);
 }
 
 

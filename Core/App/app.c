@@ -1,3 +1,7 @@
+#include "FreeRTOS.h"
+#include "task.h"
+#include "cmsis_os.h"
+
 #include "app.h"
 
 
@@ -24,24 +28,33 @@ int app_run()
     // const uint16_t max_psc = 0xFFFF;
     // BUZZER.set_volume(0x00AA);
 
-    uint32_t tone = 0x03;
+    uint32_t tone = 91;
 
-
-
-    BUZZER.set_tone(tone);
-    PWM.set_tone(tone);
 
 
     while (1)
     {
+        while (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) != pdPASS)
+        {
+        }
+
+
         ARGB_LED.set_color(color_convert_slv_to_argb(hsv));
+
+        
+        BUZZER.set_tone(tone);
+        PWM.set_tone(tone);
+        osDelay(100);
+        
+        BUZZER.set_tone(0);
+        PWM.set_tone(0);
 
         // BUZZER.set_tone(tone);
         // PWM.set_tone(tone);
-        // // tone += 20;
+        // tone += 2;
         // if(tone > 0xFFFF)
         // {
-        //     tone = 0;
+        //     tone = 1;
         // }
 
 
@@ -52,7 +65,7 @@ int app_run()
         //     psc = 0;
         // }
 
-        HAL_Delay(10);
+        // osDelay(1);
     }
     return 0;
 }

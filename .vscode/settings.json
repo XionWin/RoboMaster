@@ -14,6 +14,7 @@
         "stdint.h": "c",
         "buzzer.h": "c",
         "gpio.h": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "typeinfo": "c"
     }
 }

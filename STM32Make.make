@@ -44,8 +44,11 @@ Core/App/Device/pwm.c \
 Core/App/Mode/color.c \
 Core/App/app.c \
 Core/Src/dma.c \
+Core/Src/freertos.c \
 Core/Src/gpio.c \
+Core/Src/i2c.c \
 Core/Src/main.c \
+Core/Src/spi.c \
 Core/Src/stm32f4xx_hal_msp.c \
 Core/Src/stm32f4xx_it.c \
 Core/Src/system_stm32f4xx.c \
@@ -60,13 +63,26 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
+Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c \
+Middlewares/Third_Party/FreeRTOS/Source/croutine.c \
+Middlewares/Third_Party/FreeRTOS/Source/event_groups.c \
+Middlewares/Third_Party/FreeRTOS/Source/list.c \
+Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c \
+Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c \
+Middlewares/Third_Party/FreeRTOS/Source/queue.c \
+Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c \
+Middlewares/Third_Party/FreeRTOS/Source/tasks.c \
+Middlewares/Third_Party/FreeRTOS/Source/timers.c
 
 
 CPP_SOURCES = \
@@ -143,7 +159,10 @@ C_INCLUDES =  \
 -IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
 -IDrivers/CMSIS/Include \
 -IDrivers/STM32F4xx_HAL_Driver/Inc \
--IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy
+-IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy \
+-IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS \
+-IMiddlewares/Third_Party/FreeRTOS/Source/include \
+-IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
 
 
 

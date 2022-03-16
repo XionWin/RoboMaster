@@ -1,4 +1,5 @@
 #include "pwm.h"
+#include <math.h>
 
 extern TIM_HandleTypeDef htim1;
 
@@ -31,8 +32,9 @@ void pwm_set_psc(uint16_t value)
 
 void pwm_set_tone(uint16_t tone)
 {
-    __HAL_TIM_SetAutoreload(&htim1, 3);
-    __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, 2);
+    uint16_t v = ceil(tone / 2.f);
+    __HAL_TIM_SetAutoreload(&htim1, tone);
+    __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, v);
 }
 
 void pwm_set_ch1(uint16_t value)

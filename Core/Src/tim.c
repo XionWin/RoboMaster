@@ -44,7 +44,7 @@ void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 167;
+  htim1.Init.Prescaler = 168 * 5 - 1;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 0xffff;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -115,7 +115,7 @@ void MX_TIM4_Init(void)
 
   /* USER CODE END TIM4_Init 1 */
   htim4.Instance = TIM4;
-  htim4.Init.Prescaler = 167;
+  htim4.Init.Prescaler = 168 * 5 - 1;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim4.Init.Period = 0xffff;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -159,7 +159,7 @@ void MX_TIM5_Init(void)
 
   /* USER CODE END TIM5_Init 1 */
   htim5.Instance = TIM5;
-  htim5.Init.Prescaler = 167;
+  htim5.Init.Prescaler = 0;
   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim5.Init.Period = 0xFFFF;
   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -296,7 +296,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
     */
     GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_11|GPIO_PIN_10;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM5;
     HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);

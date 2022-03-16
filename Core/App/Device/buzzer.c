@@ -4,26 +4,20 @@ extern TIM_HandleTypeDef htim4;
 
 buzzer_t BUZZER;
 
-void buzzer_set_frequency(uint16_t freq);
-void buzzer_set_volume(uint16_t volume);
+void buzzer_set_tone(uint16_t tone);
 void enable_timer4();
 
 void buzzer_init()
 {
-    BUZZER.set_frequency = buzzer_set_frequency;
-    BUZZER.set_volume = buzzer_set_volume;
+    BUZZER.set_tone = buzzer_set_tone;
 
     enable_timer4();
 }
 
-void buzzer_set_frequency(uint16_t freq)
+void buzzer_set_tone(uint16_t tone)
 {
-    __HAL_TIM_PRESCALER(&htim4, freq);
-}
-
-void buzzer_set_volume(uint16_t volume)
-{
-    __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_3, volume);
+    __HAL_TIM_SetAutoreload(&htim4, tone);
+    __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_3, tone / 2);
 }
 
 

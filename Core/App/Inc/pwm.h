@@ -9,11 +9,13 @@ extern "C"
 #include <stdint.h>
 #include "stm32f4xx_hal.h"
     typedef void (*pwm_set_psc_func)(uint16_t value);
+    typedef void (*pwm_set_tone_func)(uint16_t tone);
     typedef void (*pwm_set_value_func)(uint16_t value);
 
     typedef struct
     {
         pwm_set_psc_func   set_psc;
+        pwm_set_tone_func  set_tone;
         pwm_set_value_func set_ch1;
         pwm_set_value_func set_ch2;
         pwm_set_value_func set_ch3;

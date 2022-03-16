@@ -9,13 +9,11 @@ extern "C"
 #include <stdint.h>
 #include "stm32f4xx_hal.h"
 
-    typedef void (*buzzer_set_frequency_func)(uint16_t freq);
-    typedef void (*buzzer_set_volume_func)(uint16_t volume);
+    typedef void (*buzzer_set_tone_func)(uint16_t tone);
 
     typedef struct
     {
-        buzzer_set_frequency_func set_frequency;
-        buzzer_set_volume_func set_volume;
+        buzzer_set_tone_func set_tone;
     } buzzer_t;
 
     void buzzer_init();

@@ -12,6 +12,8 @@
         "main.h": "c",
         "stm32f4xx_it.h": "c",
         "stdint.h": "c",
-        "buzzer.h": "c"
+        "buzzer.h": "c",
+        "gpio.h": "c",
+        "type_traits": "c"
     }
 }

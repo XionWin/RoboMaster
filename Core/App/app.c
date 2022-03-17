@@ -28,7 +28,7 @@ int app_run()
     // const uint16_t max_psc = 0xFFFF;
     // BUZZER.set_volume(0x00AA);
 
-    uint32_t tone = 91;
+    uint32_t tone = 2111;
 
 
 
@@ -42,11 +42,11 @@ int app_run()
         ARGB_LED.set_color(color_convert_slv_to_argb(hsv));
 
         
-        BUZZER.set_tone(tone);
+        // BUZZER.set_tone(tone);
         PWM.set_tone(tone);
         osDelay(100);
         
-        BUZZER.set_tone(0);
+        // BUZZER.set_tone(0);
         PWM.set_tone(0);
 
         // BUZZER.set_tone(tone);

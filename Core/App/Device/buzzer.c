@@ -17,7 +17,7 @@ void buzzer_init()
 
 void buzzer_set_tone(uint16_t tone)
 {
-    uint16_t v = ceil(tone / 2.f);
+    uint16_t v = ceil(tone / 20000.f);
     __HAL_TIM_SetAutoreload(&htim4, tone);
     __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_3, v);
 }

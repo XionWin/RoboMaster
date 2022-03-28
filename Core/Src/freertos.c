@@ -23,6 +23,8 @@
 #include "main.h"
 #include "cmsis_os.h"
 
+#include "global.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -48,6 +50,7 @@
 
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
+osThreadId triggerTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -55,6 +58,7 @@ osThreadId defaultTaskHandle;
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
+void StartTriggerTask(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -102,13 +106,17 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 1024);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  
+  osThreadDef(triggerTask, StartTriggerTask, osPriorityNormal, 0, 256);
+  triggerTaskHandle = osThreadCreate(osThread(triggerTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
-
+  
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -127,9 +135,21 @@ void StartDefaultTask(void const * argument)
     //     osDelay(1);
     //   }
 
-    app_init();
-    app_run();
+    main_task_init();
+    MAIN_TASK.run();
   /* USER CODE END StartDefaultTask */
+}
+
+void StartTriggerTask(void const * argument)
+{
+  /* USER CODE BEGIN test_task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1000);
+    xTaskNotifyGive(defaultTaskHandle);
+  }
+  /* USER CODE END test_task */
 }
 
 /* Private application code --------------------------------------------------*/

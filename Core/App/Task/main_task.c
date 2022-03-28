@@ -2,17 +2,34 @@
 #include "task.h"
 #include "cmsis_os.h"
 
-#include "app.h"
+#include "main_task.h"
 
+#include "aRGB_led.h"
+#include "console.h"
+#include "buzzer.h"
+#include "pwm.h"
 
-#define CVT_FLOAT_TO_BYTE(float_v) ( \
-    float_v * 0xFF)
+extern aRGB_led_t ARGB_LED;
+extern console_t CONSOLE;
+extern buzzer_t BUZZER;
+extern pwm_t PWM;
+
+// Stm32f4 functions
+/* Register in USART1_IRQHandler */
+void USART1_Rx_Idle_Callback(UART_HandleTypeDef *huart);
+
+int main_task_run();
+
+main_task_t MAIN_TASK;
+
+#define CVT_FLOAT_TO_BYTE(float_v) (float_v * 0xFF)
 
 color_t hsv = COLOR_HSV_INIT(0.f, 1.f, 1.f);
 void console_receviced_callback(uint8_t *buffer, uint32_t len);
 uint32_t color_convert_slv_to_argb(color_t hsv);
 
-void app_init()
+
+void main_task_init()
 {
     aRGB_led_init();
     console_init();
@@ -20,17 +37,22 @@ void app_init()
     pwm_init();
 
     CONSOLE.read_callback = console_receviced_callback;
+
+    MAIN_TASK.run = main_task_run;
 }
 
-int app_run()
+int main_task_run()
 {
     // uint16_t psc = 0;
     // const uint16_t max_psc = 0xFFFF;
     // BUZZER.set_volume(0x00AA);
 
-    uint32_t tone = 2111;
+    uint32_t tone = 200;
 
-
+    BUZZER.enable();
+    BUZZER.set_tone(tone);
+    PWM.set_tone(tone);
+    BUZZER.disable();
 
     while (1)
     {
@@ -38,16 +60,17 @@ int app_run()
         {
         }
 
-
         ARGB_LED.set_color(color_convert_slv_to_argb(hsv));
 
-        
+        BUZZER.enable();
         // BUZZER.set_tone(tone);
-        PWM.set_tone(tone);
+        // PWM.set_tone(tone);
         osDelay(100);
-        
+
+        BUZZER.disable();
+
         // BUZZER.set_tone(0);
-        PWM.set_tone(0);
+        // PWM.set_tone(0);
 
         // BUZZER.set_tone(tone);
         // PWM.set_tone(tone);
@@ -56,7 +79,6 @@ int app_run()
         // {
         //     tone = 1;
         // }
-
 
         // BUZZER.set_frequency(psc);
         // psc += 5;

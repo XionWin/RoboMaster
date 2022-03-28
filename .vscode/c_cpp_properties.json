@@ -3,7 +3,10 @@
     {
       "name": "STM32",
       "includePath": [
-        "Core/App/Inc",
+        "Core/App",
+        "Core/App/Device",
+        "Core/App/Mode",
+        "Core/App/Task",
         "Core/Inc",
         "Drivers/CMSIS/Device/ST/STM32F4xx/Include",
         "Drivers/CMSIS/Include",

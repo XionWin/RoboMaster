@@ -15,6 +15,9 @@
         "buzzer.h": "c",
         "gpio.h": "c",
         "type_traits": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "main_task.h": "c",
+        "task.h": "c",
+        "freertos.h": "c"
     }
 }

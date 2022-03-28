@@ -42,7 +42,9 @@ Core/App/Device/pwm.c \
 Core/App/Device/buzzer.c \
 Core/App/Device/console.c \
 Core/App/Device/aRGB_led.c \
-Core/App/Device/global.c \
+Core/App/global.c \
+Core/App/Task/main_task.c \
+Core/App/Task/sub_task.c \
 Core/App/Mode/color.c \
 Core/Src/stm32f4xx_it.c \
 Core/Src/stm32f4xx_hal_msp.c \
@@ -140,7 +142,10 @@ AS_INCLUDES =
 # C includes
 C_INCLUDES =  \
 -ICore/Inc \
--ICore/App/Inc \
+-ICore/App \
+-ICore/App/Task \
+-ICore/App/Mode \
+-ICore/App/Device \
 -IDrivers/STM32F4xx_HAL_Driver/Inc \
 -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32F4xx/Include \

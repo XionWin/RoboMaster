@@ -39,10 +39,11 @@ C_SOURCES =  \
 Core/App/Device/aRGB_led.c \
 Core/App/Device/buzzer.c \
 Core/App/Device/console.c \
-Core/App/Device/global.c \
 Core/App/Device/pwm.c \
 Core/App/Mode/color.c \
-Core/App/app.c \
+Core/App/Task/main_task.c \
+Core/App/Task/sub_task.c \
+Core/App/global.c \
 Core/Src/dma.c \
 Core/Src/freertos.c \
 Core/Src/gpio.c \
@@ -154,7 +155,10 @@ AS_INCLUDES = \
 
 # C includes
 C_INCLUDES =  \
--ICore/App/Inc \
+-ICore/App \
+-ICore/App/Device \
+-ICore/App/Mode \
+-ICore/App/Task \
 -ICore/Inc \
 -IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
 -IDrivers/CMSIS/Include \

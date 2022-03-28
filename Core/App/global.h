@@ -13,6 +13,9 @@ extern "C"
 #include "buzzer.h"
 #include "pwm.h"
 
+#include "main_task.h"
+#include "sub_task.h"
+
     // Resources
     extern aRGB_led_t ARGB_LED;
     extern console_t CONSOLE;
@@ -22,6 +25,9 @@ extern "C"
     // Stm32f4 functions
     /* Register in USART1_IRQHandler */
     void USART1_Rx_Idle_Callback(UART_HandleTypeDef *huart);
+
+    extern main_task_t MAIN_TASK;
+    extern sub_task_t SUB_TASK;
 
 #ifdef __cplusplus
 }

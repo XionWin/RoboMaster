@@ -8,18 +8,17 @@ extern "C"
 
 #include <stdint.h>
 #include "stm32f4xx_hal.h"
-    typedef void (*pwm_set_psc_func)(uint16_t value);
-    typedef void (*pwm_set_tone_func)(uint16_t tone);
-    typedef void (*pwm_set_value_func)(uint16_t value);
+    typedef void (*pwm_set_reload_func)(uint16_t value);
+    typedef void (*pwm_enable_func)();
+    typedef void (*pwm_disable_func)();
+    typedef void (*pwm_set_ch_value_func)(uint16_t value);
 
     typedef struct
     {
-        pwm_set_psc_func   set_psc;
-        pwm_set_tone_func  set_tone;
-        pwm_set_value_func set_ch1;
-        pwm_set_value_func set_ch2;
-        pwm_set_value_func set_ch3;
-        pwm_set_value_func set_ch4;
+        pwm_set_reload_func set_reload;
+        pwm_enable_func enable_ch1;
+        pwm_disable_func disable_ch1;
+        pwm_set_ch_value_func set_ch1;
     } pwm_t;
 
     void pwm_init();

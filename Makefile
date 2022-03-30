@@ -38,13 +38,13 @@ BUILD_DIR = build
 C_SOURCES =  \
 Core/Src/main.c \
 Core/App/app.c \
+Core/App/Task/sub_task.c \
+Core/App/Task/main_task.c \
 Core/App/Device/pwm.c \
 Core/App/Device/buzzer.c \
 Core/App/Device/console.c \
 Core/App/Device/aRGB_led.c \
 Core/App/global.c \
-Core/App/Task/main_task.c \
-Core/App/Task/sub_task.c \
 Core/App/Mode/color.c \
 Core/Src/stm32f4xx_it.c \
 Core/Src/stm32f4xx_hal_msp.c \

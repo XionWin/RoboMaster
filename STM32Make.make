@@ -36,10 +36,10 @@ BUILD_DIR = build
 ######################################
 # C sources
 C_SOURCES =  \
-Core/App/Device/aRGB_led.c \
-Core/App/Device/buzzer.c \
+Core/App/Board/aRGB_led.c \
+Core/App/Board/buzzer.c \
+Core/App/Board/pwm.c \
 Core/App/Device/console.c \
-Core/App/Device/pwm.c \
 Core/App/Mode/color.c \
 Core/App/Task/main_task.c \
 Core/App/Task/sub_task.c \
@@ -156,6 +156,7 @@ AS_INCLUDES = \
 # C includes
 C_INCLUDES =  \
 -ICore/App \
+-ICore/App/Board \
 -ICore/App/Device \
 -ICore/App/Mode \
 -ICore/App/Task \

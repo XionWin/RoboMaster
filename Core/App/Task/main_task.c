@@ -51,9 +51,22 @@ int main_task_run()
 
     BUZZER.enable();
     BUZZER.set_tone(tone);
-    PWM.set_reload(400);
-    PWM.set_ch1(tone);
     BUZZER.disable();
+
+    PWM.set_reload(2000 - 1);
+    PWM.enable_ch(1);
+    PWM.enable_ch(2);
+    PWM.enable_ch(3);
+    PWM.enable_ch(4);
+
+    uint16_t value = 1;
+    PWM.set_ch(1, value);
+    PWM.set_ch(2, value);
+    PWM.set_ch(3, value);
+    PWM.set_ch(4, value);
+
+
+    
 
     while (1)
     {
@@ -64,13 +77,9 @@ int main_task_run()
         ARGB_LED.set_color(color_convert_slv_to_argb(hsv));
 
         BUZZER.enable();
-        PWM.enable_ch1();
-        // BUZZER.set_tone(tone);
-        // PWM.set_tone(tone);
         osDelay(100);
 
         BUZZER.disable();
-        PWM.disable_ch1();
 
         // BUZZER.set_tone(0);
         // PWM.set_tone(0);

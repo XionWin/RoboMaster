@@ -4,6 +4,7 @@
       "name": "STM32",
       "includePath": [
         "Core/App",
+        "Core/App/Board",
         "Core/App/Device",
         "Core/App/Mode",
         "Core/App/Task",
